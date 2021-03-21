@@ -40,10 +40,12 @@
 ③打开文本“开启telnet命令.txt”，复制里面的内容。
 ④双击打开“一键开启telnet.bat”，根据窗口提示进行操作。
 ⑤按下win+r，输入cmd,复制下列代码运行。
+
 telnet 192.168.31.1
 wget http://192.168.31.177:8081/breed-mt7621-xiaomi-r3g.bin&&nvram set uart_en=1&&nvram set bootdelay=5&&nvram set flag_try_sys1_failed=1&&nvram commit
 
 mtd -r write breed-mt7621-xiaomi-r3g.bin Bootloader
+
         ⑥将网卡改回自动获取IP地址
         ⑦拔掉电源，拿牙签顶住后面重置按钮后不松手的情况下插上电源，路由灯闪烁，稍等片刻
     Ⅲ：进入Breed刷openwrt
