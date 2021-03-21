@@ -39,20 +39,19 @@
 ②在浏览器中打开192.168.31.1，在上网设置中选择pppoe拨号，填入 用户名：123密码：123。
 ③打开文本“开启telnet命令.txt”，复制里面的内容。
 ④双击打开“一键开启telnet.bat”，根据窗口提示进行操作。
-⑤按下win+r，输入cmd,复制下列代码运行。
-
+⑤按下win+r，输入cmd,复制下列代码运行：
 telnet 192.168.31.1
 wget http://192.168.31.177:8081/breed-mt7621-xiaomi-r3g.bin&&nvram set uart_en=1&&nvram set bootdelay=5&&nvram set flag_try_sys1_failed=1&&nvram commit
 
 mtd -r write breed-mt7621-xiaomi-r3g.bin Bootloader
 
-        ⑥将网卡改回自动获取IP地址
-        ⑦拔掉电源，拿牙签顶住后面重置按钮后不松手的情况下插上电源，路由灯闪烁，稍等片刻
-    Ⅲ：进入Breed刷openwrt
-        ①浏览器输入192.168.1.1进入Breed，点击“环境变量编辑”，添加参数“xiaomi.r3g.bootfw”，数值为2，点击保存
-        ②点击“固件更新”，刷入openwrt底包。
-        ③浏览器输入192.168.1.1进入后台，账号：root，密码：password，点击“系统”“备份/升级”，去除“保留配置”选项，上传openwrt完整固件包，点击刷写固件
-        ④等待路由器重启，在浏览器中输入192.168.2.1，账号：root，密码：password
+⑥将网卡改回自动获取IP地址
+⑦拔掉电源，拿牙签顶住后面重置按钮后不松手的情况下插上电源，路由灯闪烁，稍等片刻
+进入Breed刷openwrt
+①浏览器输入192.168.1.1进入Breed，点击“环境变量编辑”，添加参数“xiaomi.r3g.bootfw”，数值为2，点击保存
+②点击“固件更新”，刷入openwrt底包。
+③浏览器输入192.168.1.1进入后台，账号：root，密码：password，点击“系统”“备份/升级”，去除“保留配置”选项，上传openwrt完整固件包，点击刷写固件
+④等待路由器重启，在浏览器中输入192.168.2.1，账号：root，密码：password
 二、安装Xshell,WinSCP
 三、使用Xshell连接路由器
     点击“新建”，点击“连接”，“名称”输入openwrt，“协议”选择SSH，在“主机”那里输入192.168.2.1，“端口号”22，在“用户身份验证”的方法中选择“Password”，“用户名”输入root，“密码”输入password,点击确定
