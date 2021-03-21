@@ -16,6 +16,9 @@
 本教程路由器以Redmi AC2100为例，不同型号的路由器操作过程会有所差异，需您自己上网查找操作教程。
 
 # 前期准备工作
-一款支持刷入第三方系统(openwrt、padavan)的路由器
-两根网线
-下载软件WinSCP、Xshell
+一款支持刷入第三方系统(openwrt、padavan)的路由器。
+
+两根网线。
+
+下载软件WinSCP、Xshell。
+
