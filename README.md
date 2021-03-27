@@ -23,7 +23,7 @@
 下载软件WinSCP、Xshell。
 
 # 一、刷openwrt（此处以RedmiAC2100举例）
-# Ⅰ：前期准备工作
+## Ⅰ：前期准备工作
 1.开启Telnet
 
 打开“控制面板”点击“程序”在“程序和功能”中打开“启用或关闭Windows功能”勾选“Telnet客户端”点击确定。
@@ -43,7 +43,7 @@
 
 右键“网卡”点击“属性”双击“Internet协议版本4（TCP/IPv4）”点击“使用下面的IP地址”将ip地址ip，子网掩码，默认网关修改为ip地址：192.168.31.177掩码：255.255.255.0网关：192.168.31.1。
 
-# Ⅱ：解锁路由器刷入Breed
+## Ⅱ：解锁路由器刷入Breed
 
 1.解压压缩包，安装npcap-0.9991.exe
         
@@ -54,3 +54,31 @@
 4.双击打开“一键开启telnet.bat”，根据窗口提示进行操作
         
 5.按下win+r，输入cmd,复制下列代码运行
+```
+telnet 192.168.31.1
+wget http://192.168.31.177:8081/breed-mt7621-xiaomi-r3g.bin&&nvram set uart_en=1&&nvram set bootdelay=5&&nvram set flag_try_sys1_failed=1&&nvram commit
+
+mtd -r write breed-mt7621-xiaomi-r3g.bin Bootloader
+```
+6.将网卡改回自动获取IP地址
+7.拔掉电源，拿牙签顶住后面重置按钮后不松手的情况下插上电源，路由灯闪烁，稍等片刻
+## Ⅲ：进入Breed刷openwrt
+
+1.浏览器输入192.168.1.1进入Breed，点击“环境变量编辑”，添加参数“xiaomi.r3g.bootfw”，数值为2，点击保存
+
+2.点击“固件更新”，刷入openwrt底包。
+
+3.浏览器输入192.168.1.1进入后台，账号：root，密码：password，点击“系统”“备份/升级”，去除“保留配置”选项，上传openwrt完整固件包，点击刷写固件
+
+4.等待路由器重启，在浏览器中输入192.168.2.1，账号：root，密码：password
+# 三、使用Xshell、WinSCP连接路由器并联网
+## Xshell
+
+点击“新建”，点击“连接”，“名称”输入openwrt，“协议”选择SSH，在“主机”那里输入192.168.2.1，“端口号”22，在“用户身份验证”的方法中选择“Password”，“用户名”输入root，“密码”输入password,点击确定
+## WinSCP
+
+“文件协议”选择SCP，“主机名”输入192.168.2.1，“端口号”输入22，“用户名”输入root，“密码”输入password，点击登录
+
+## 修改drcom.sh文件并通过WinSCP放入路由器系统中
+# 四、防检测
+
