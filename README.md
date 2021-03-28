@@ -91,6 +91,7 @@ chmod 777 /etc/init.d/Drcom.hrbcu.sh
 
 # 四、防检测
 ## 修改UA
+更新 OpenWRT 路由器的软件源，并安装 Privoxy 软件包
 ```
 opkg update
 opkg install privoxy luci-app-privoxy luci-i18n-privoxy-zh-cn
