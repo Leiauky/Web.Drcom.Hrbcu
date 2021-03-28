@@ -79,6 +79,44 @@ mtd -r write breed-mt7621-xiaomi-r3g.bin Bootloader
 
 “文件协议”选择SCP，“主机名”输入192.168.2.1，“端口号”输入22，“用户名”输入root，“密码”输入password，点击登录
 
-## 修改drcom.sh文件并通过WinSCP放入路由器系统中
+## 修改Drcom.hrbcu.sh文件并通过WinSCP放入路由器系统中
+
+修改完Drcom.hrbcu.sh文件后放入/etc/init.d文件目录中
+## 通过Xshell运行Drcom.hrbcu.sh，输入以下命令
+```
+cd /etc/init.d/
+chmod 777 /etc/init.d/Drcom.hrbcu.sh
+./Drcom.hrbcu.sh
+```
+
 # 四、防检测
+## 修改UA
+```
+opkg update
+opkg install privoxy luci-app-privoxy luci-i18n-privoxy-zh-cn
+```
+
+配置 Privoxy 设置
+点击 Services -> Privoxy WEB proxy
+Files and Directories（文件和目录）：Action Files 删除到只剩一个框，填入match-all.action。Filter files 和 Trust files 均留空
+Access Control（访问控制）：Listen addresses 填写0.0.0.0:8118，Permit access 填写192.168.0.0/16。Enable action file editor 勾选
+Miscellaneous（杂项）：Accept intercepted requests 勾选
+Logging（日志）：全部取消勾选
+点击 Save & Apply
+
+配置防火墙转发。点击 Network-> Firewall（防火墙），然后点击 Custom Rules 标签，在大框框里另起一行，添加下面的代码：
+```
+iptables -t nat -N PrivoxyUA
+iptables -t nat -I PREROUTING -p tcp --dport 80 -j PrivoxyUA
+iptables -t nat -A PrivoxyUA -m mark --mark 1/1 -j RETURN
+iptables -t nat -A PrivoxyUA -d 0.0.0.0/8 -j RETURN
+iptables -t nat -A PrivoxyUA -d 127.0.0.0/8 -j RETURN
+iptables -t nat -A PrivoxyUA -d 192.168.0.0/16 -j RETURN
+iptables -t nat -A PrivoxyUA -p tcp -j REDIRECT --to-port 8118
+```
+点击 Restart Firewall（重启防火墙）按钮
+
+使用 Privoxy 替换 UA。打开http://config.privoxy.org/edit-actions-list?f=0 点击 Edit 按钮。在Action 那一列中，hide-user-agent 改选为 Enable（绿色）,其它全部选择为 No Change （紫色）。最后点击 Submit 按钮，再次重启路由器
+验证防检测效果。手机连接到该路由器的WIFI，使用手机在浏览器打开http://www.user-agent.cn/ 查看结果是否为Privoxy 3.0.28
+
 
