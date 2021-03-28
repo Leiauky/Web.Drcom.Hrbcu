@@ -121,10 +121,10 @@ iptables -t nat -A PrivoxyUA -p tcp -j REDIRECT --to-port 8118
 
 # 五、自启设置
 通过Xshell进入rc.d目录
-···
+```
 cd  /etc/rc.d
-···
+```
 在rc.d目录下建立启动软链接
-···
+```
 ln -s /etc/init.d/Drcom.hrbcu.sh /etc/rc.d/S99Drcom.hrbcu.sh
-···
+```
