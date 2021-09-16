@@ -118,7 +118,7 @@ iptables -t nat -A PrivoxyUA -p tcp -j REDIRECT --to-port 8118
 点击 Restart Firewall（重启防火墙）按钮
 
 使用 Privoxy 替换 UA。打开http://config.privoxy.org/edit-actions-list?f=0 点击 Edit 按钮。在Action 那一列中，hide-user-agent 改选为 Enable（绿色）,其它全部选择为 No Change （紫色）。最后点击 Submit 按钮，再次重启路由器
-验证防检测效果。手机连接到该路由器的WIFI，使用手机在浏览器打开http://www.user-agent.cn/ 查看结果是否为Privoxy 3.0.28
+验证防检测效果。手机连接到该路由器的WIFI，使用手机在浏览器打开http://www.user-agent.cn/ 查看结果是否为Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.108 Safari/537.36
 
 # 五、自启设置
 通过Xshell进入rc.d目录
